@@ -13,6 +13,7 @@ namespace StopWatch
     public partial class StopWatch : Form
     {
         private DateTime startTime;
+        private TimeSpan elapsedTime = TimeSpan.Zero;
 
         public StopWatch()
         {
@@ -22,7 +23,7 @@ namespace StopWatch
         private void startButton_Click(object sender, EventArgs e)
         {
             // Set a value to start time
-            startTime = DateTime.Now;
+            startTime = DateTime.Now - elapsedTime; ;
             // Start the timer
             formTimer.Start();
         }
@@ -30,11 +31,13 @@ namespace StopWatch
         private void stopButton_Click(object sender, EventArgs e)
         {
             formTimer.Stop();
+            elapsedTime = DateTime.Now - startTime;
         }
 
         private void resetButton_Click(object sender, EventArgs e)
         {
             formTimer.Stop();
+            elapsedTime = TimeSpan.Zero;
             watchLabel.Text = "00:00.00";
         }
 
